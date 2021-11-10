@@ -11,10 +11,10 @@ export function lerp(x, y, t) {
 
 /**
  * Calculates the angle from one point to another.
- * @param {{x: number, y: number}} origin 
- * @param {{x: number, y: number}} target 
+ * @param {[x: number, y: number]} origin 
+ * @param {[x: number, y: number]} target 
  * @returns {number}
  */
 export function angleTo(origin, target) {
-    return Math.atan2(target.y - origin.y, target.x - origin.x);
+    return Math.atan2(target[1] - origin[1], target[0] - origin[0]);
 } 

@@ -13,12 +13,12 @@ export function destroyAll(...sprites) {
  * @typedef IObjectClass
  * @typedef IWorldInstance
  * @param {number | string} layer 
- * @param {{x: number, y: number}} respawnPoint 
+ * @param {[x: number, y: number]} respawnPoint 
  * @param {...IObjectClass} sprites
  * @returns {Generator<IWorldInstance>}
  */
 export function* respawnAll(layer, respawnPoint, ...sprites) {
     for (let sprite of sprites) {
-        yield sprite.createInstance(layer, ...Object.values(respawnPoint), false);
+        yield sprite.createInstance(layer, ...respawnPoint, false);
     }
 }
