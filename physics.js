@@ -17,8 +17,8 @@ export function isTouching(obj1, obj2) {
     let nObj2Contacts = obj2.behaviors.Physics.getContactCount();
     for(let i = 0; i < nObj1Contacts; i++) {
         for(let j = 0; j < nObj2Contacts; j++) {
-            if (Math.abs(obj2.behaviors.Physics.getContact(j).x - obj1.behaviors.Physics.getContact(i).x) <= 1 && // If the objects both have contact points
-                Math.abs(obj2.behaviors.Physics.getContact(j).y - obj1.behaviors.Physics.getContact(i).t) <= 1) { // that are within one pixel of each other
+            if (Math.abs(obj2.behaviors.Physics.getContact(j)[0] - obj1.behaviors.Physics.getContact(i)[0]) <= 1 && // If the objects both have contact points
+                Math.abs(obj2.behaviors.Physics.getContact(j)[1] - obj1.behaviors.Physics.getContact(i)[1]) <= 1) { // that are within one pixel of each other
                     return true;
                 }
         }
