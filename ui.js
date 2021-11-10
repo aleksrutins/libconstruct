@@ -4,7 +4,7 @@ export function uiText(item) {
     } else if(item instanceof Renderable) {
         return item.render();
     } else {
-        return '[b](INVALID WIDGET)[/b]';
+        return '';
     }
 }
 export class Renderable {
@@ -63,7 +63,7 @@ export class Box extends Renderable {
             if(item instanceof Renderable) {
                 return item.render();
             } else {
-                return '[b](INVALID WIDGET)[/b]';
+                return '';
             }
         }).join(' ');
     }
