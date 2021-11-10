@@ -48,6 +48,7 @@ export class HealthBar extends Renderable {
 }
 export class ValueDisplay extends Renderable {
     constructor(props) {
+        super();
         this.content = Object.keys(props).map(key => {
             if (typeof props[key] == 'string') return `{ ${key}: ${props[key]} }`;
             if (props[key] instanceof Renderable) return `{ ${key}: ${props[key].render()} }`;
@@ -56,6 +57,7 @@ export class ValueDisplay extends Renderable {
 }
 export class Box extends Renderable {
     constructor(items) {
+        super();
         this.items = items;
     }
     render() {
