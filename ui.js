@@ -1,12 +1,16 @@
-export function uiText(props) {
-    return Object.keys(props).map(key => {
-        if (typeof props[key] == 'string') return `{ ${key}: ${props[key]} }`;
-        if (props[key] instanceof Renderable) return `{ ${key}: ${props[key].render()} }`;
-    }).join('  ');
+export function uiText(item) {
+    if(item instanceof Array) {
+        return new Box(item).render();
+    } else if(item instanceof Renderable) {
+        return item.render();
+    } else {
+        return '[b](INVALID WIDGET)[/b]';
+    }
 }
 export class Renderable {
+    content = '';
     render() {
-        return '';
+        return this.content;
     }
 }
 export class TextBlock extends Renderable {
@@ -22,11 +26,7 @@ export class TextBlock extends Renderable {
 export class Range extends Renderable {
     constructor(current, max) {
         super();
-        this.cur = current;
-        this.max = max;
-    }
-    render() {
-        return `[b]${this.cur}[/b]/[b]${this.max}[/b]`;
+        this.content = `[b]${current}[/b]/[b]${max}[/b]`;
     }
 }
 export class HealthBar extends Renderable {
@@ -44,5 +44,27 @@ export class HealthBar extends Renderable {
             }
         }
         return rendered;
+    }
+}
+export class ValueDisplay extends Renderable {
+    constructor(props) {
+        this.content = Object.keys(props).map(key => {
+            if (typeof props[key] == 'string') return `{ ${key}: ${props[key]} }`;
+            if (props[key] instanceof Renderable) return `{ ${key}: ${props[key].render()} }`;
+        }).join('  ');
+    }
+}
+export class Box extends Renderable {
+    constructor(items) {
+        this.items = items;
+    }
+    render() {
+        return this.items.map(item => {
+            if(item instanceof Renderable) {
+                return item.render();
+            } else {
+                return '[b](INVALID WIDGET)[/b]';
+            }
+        }).join(' ');
     }
 }
