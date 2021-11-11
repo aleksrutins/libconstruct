@@ -24,7 +24,9 @@ export function uiText(item) {
     }
 }
 export class Renderable {
-    content = '';
+    get content() {
+        return '';
+    }
     /**
      * @type {{color: string, backColor: string}}
      */
