@@ -22,3 +22,16 @@ export function* respawnAll(layer, respawnPoint, ...sprites) {
         yield sprite.createInstance(layer, ...respawnPoint, false);
     }
 }
+
+export function isInViewport(sprite, layerName) {
+    /**
+     * @type {DOMRect}
+     */
+    let viewportRect = sprite.layout.getLayer(layerName);
+    return (
+        sprite.x > viewportRect.left &&
+        sprite.y > viewportRect.top &&
+        sprite.x < viewportRect.right &&
+        sprite.y < viewportRect.bottom
+    );
+}
