@@ -27,7 +27,7 @@ export function isInViewport(sprite, layerName) {
     /**
      * @type {DOMRect}
      */
-    let viewportRect = sprite.layout.getLayer(layerName);
+    let viewportRect = sprite.layout.getLayer(layerName).getViewport();
     return (
         sprite.x > viewportRect.left &&
         sprite.y > viewportRect.top &&
