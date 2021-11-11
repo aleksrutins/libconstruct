@@ -24,8 +24,9 @@ export function uiText(item) {
     }
 }
 export class Renderable {
+    text = '';
     get content() {
-        return '';
+        return this.text;
     }
     /**
      * @type {{color: string, backColor: string}}
@@ -44,9 +45,6 @@ export class TextBlock extends Renderable {
     constructor(text = '') {
         super();
         this.text = text.toString();
-    }
-    get content() {
-        return this.text;
     }
 }
 export class Range extends Renderable {
@@ -75,7 +73,10 @@ export class HealthBar extends Renderable {
 export class ValueDisplay extends Renderable {
     constructor(props) {
         super();
-        this.content = Object.keys(props).map(key => {
+        this.props = props;
+    }
+    get content() {
+        return Object.keys(props).map(key => {
             if (typeof props[key] == 'string') return `{ ${key}: ${props[key]} }`;
             if (props[key] instanceof Renderable) return `{ ${key}: ${props[key].render()} }`;
         }).join('  ');
