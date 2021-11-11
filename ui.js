@@ -29,7 +29,7 @@ export class Renderable {
      * @type {{color: string, backColor: string}}
      */
     style = {};
-    style(style) {
+    styles(style) {
         this.style = style;
         return this;
     }
