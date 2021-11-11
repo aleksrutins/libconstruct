@@ -1,3 +1,19 @@
+function styleBBCode(text, styles) {
+    let tagNames = {
+        'color': 'color',
+        'backColor': 'background-color'
+    }
+    let beginTags = [];
+    let endTags = [];
+    for(let style in styles) {
+        if(tagNames[style]) {
+            beginTags.push(`[${tagNames[style]}=${styles[style]}]`);
+            endTags.unshift(`[/${tagNames[style]}]`);
+        }
+    }
+    return beginTags.join('') + text + endTags.join('');
+}
+
 export function uiText(item) {
     if(item instanceof Array) {
         return new Box(item).render();
@@ -9,18 +25,26 @@ export function uiText(item) {
 }
 export class Renderable {
     content = '';
+    /**
+     * @type {{color: string, backColor: string}}
+     */
+    style = {};
+    style(style) {
+        this.style = style;
+        return this;
+    }
     render() {
-        return this.content;
+        return styleBBCode(this.content, this.style);
     }
 }
+
 export class TextBlock extends Renderable {
-    constructor(text = '', color) {
+    constructor(text = '') {
         super();
         this.text = text.toString();
-        this.color = color;
     }
-    render() {
-        return (this.color ? `[color=${this.color}]` : '') + this.text + (this.color ? '[/color]' : '');
+    get content() {
+        return this.text;
     }
 }
 export class Range extends Renderable {
@@ -34,7 +58,7 @@ export class HealthBar extends Renderable {
         super();
         Object.assign(this, { current, max, char, activeColor, inactiveColor });
     }
-    render() {
+    get content() {
         let rendered = '';
         for (let i = 0; i < this.max; i++) {
             if (i < this.current) {
@@ -60,7 +84,7 @@ export class Box extends Renderable {
         super();
         this.items = items;
     }
-    render() {
+    get content() {
         return this.items.map(item => {
             if(item instanceof Renderable) {
                 return item.render();
