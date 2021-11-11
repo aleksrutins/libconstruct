@@ -76,6 +76,7 @@ export class ValueDisplay extends Renderable {
         this.props = props;
     }
     get content() {
+        let props = this.props;
         return Object.keys(props).map(key => {
             if (typeof props[key] == 'string') return `{ ${key}: ${props[key]} }`;
             if (props[key] instanceof Renderable) return `{ ${key}: ${props[key].render()} }`;
