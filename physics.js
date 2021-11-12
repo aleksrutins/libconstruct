@@ -23,4 +23,5 @@ export function isTouching(obj1, obj2) {
                 }
         }
     }
+    return false;
 }
