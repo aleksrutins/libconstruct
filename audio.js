@@ -1,7 +1,9 @@
 let preloads = new Map();
 
-export async function preload(runtime, fileName) {
-	preloads.set(fileName, await runtime.assets.getMediaFileUrl(fileName));
+export async function preload(runtime, ...fileNames) {
+	for(let fileName of fileNames) {
+		preloads.set(fileName, await runtime.assets.getMediaFileUrl(fileName));
+	}
 }
 export async function play(fileName, runtime) {
 	let url;
