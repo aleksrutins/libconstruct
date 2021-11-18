@@ -1,13 +1,14 @@
-export function physicsPlatformer(mainSprite, keyboard, sideForce = 20, jumpForce = 40) {
-    if (keyboard.isKeyDown("ArrowLeft")) { // If moving left
+export function physicsPlatformer(mainSprite, keyboard, controls = ['ArrowLeft', 'ArrowRight', 'ArrowUp'], sideForce = 20, jumpForce = 40) {
+
+    if (keyboard.isKeyDown(controls[0])) { // If moving left
         mainSprite.width = -Math.abs(mainSprite.width); // Mirror it
         mainSprite.behaviors.Physics.applyForce(-sideForce, 0);
     }
-    if (keyboard.isKeyDown("ArrowRight")) { // If moving right
+    if (keyboard.isKeyDown(controls[1])) { // If moving right
         mainSprite.width = Math.abs(mainSprite.width); // Unmirror it
         mainSprite.behaviors.Physics.applyForce(sideForce, 0);
     }
-    if (keyboard.isKeyDown("ArrowUp")) {
+    if (keyboard.isKeyDown(controls[2])) {
         mainSprite.behaviors.Physics.applyForce(0, -jumpForce);
     }
 }
